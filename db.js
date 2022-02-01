@@ -12,10 +12,10 @@ db.once('open',()=> console.log('MongoDB connection established'))
 
 
 module.exports = {
-    saveFile:async(options={userId:"",fileName:"",buffer:null})=>{  
+    saveFile:async(options={userId:null,fileName:null,buffer:null})=>{  
         const foo = await File.find({userId:options.userId, fileName:options.fileName})
         if(foo.length) return {fail:"file is exist."}
-
+        if(!options.userId|!options.fileName|!options.buffer) return {fail:"less data."}
         await new File({
             userId : options.userId ,
             fileName : options.fileName ,
@@ -25,8 +25,8 @@ module.exports = {
         return {success:options.fileName}
     },
     getFile:async(options={})=>{
-        const foo = await File.find(options)
-        if(!foo.length) return {fail:"file is not exist."}
+        const foo = await File.findOne(options)
+        if(!foo) return {fail:"file is not exist."}
         return foo
     },
 }

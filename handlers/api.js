@@ -5,7 +5,7 @@ exports.uploadFile = async (req, res) => {
         userId : req.body.userId,
         fileName : req.file.originalname,
         buffer : req.file.buffer,
-    }    
+    }
     const mes = await db.saveFile(options)
     res.send( mes )
 }
@@ -15,6 +15,6 @@ exports.getFile = async (req, res) => {
         res.send(foo.fail)
     }else{
         res.set('Content-Type', 'image/png')
-        res.send(foo[0].buffer)
+        res.send(foo.buffer)
     }
 }
