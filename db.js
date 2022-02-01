@@ -39,17 +39,17 @@ module.exports = {
         if(!options.userId) return {failed:"Data deficient."}
         const user = await module.exports.getUser(options)
         if(!user) return {failed:"User does not exist."}
-        
+
         return user.files
     },
-    addUser:async(options={ userId:null })=>{
+    addUser:async(options={})=>{
         await new User({
             userId : options.userId ,
             files:[]
         }).save() 
         return {success:options.userId}
     },
-    getUser:async(options={ userId:null })=>{
+    getUser:async(options={})=>{
         const user = await User.findOne(options)
         return user
     }
